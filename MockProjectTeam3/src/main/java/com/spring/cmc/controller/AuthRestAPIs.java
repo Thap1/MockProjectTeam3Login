@@ -60,14 +60,6 @@ public class AuthRestAPIs {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-//		User user = userDetailsService.checkLogin(loginRequest.getUsername(), loginRequest.getPassword());
-//		String token = "";
-//		if (user != null) {
-//			token = jwtProvider.generator(new User());
-//			// response.setHeader("token", token);
-//			return new ResponseEntity<>(user, HttpStatus.OK);
-//		} else
-//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		String jwt = jwtProvider.generateJwtToken(authentication);
@@ -95,7 +87,7 @@ public class AuthRestAPIs {
 						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 				roles.add(adminRole);
 				break;
-			case "pm":
+			case "mg":
 				Role mngRole = roleRepository.findByRoleName(RoleName.ROLE_MANAGER)
 						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 				roles.add(mngRole);

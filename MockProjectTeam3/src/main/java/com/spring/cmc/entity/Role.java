@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+
+import org.hibernate.annotations.NaturalId;
+
+import com.spring.cmc.model.RoleName;
 
 /**
  * The persistent class for the role database table.
@@ -27,10 +33,10 @@ public class Role implements Serializable {
 	@Column(name = "role_id")
 	private int roleId;
 
-//	@NaturalId
-//	 @Enumerated(EnumType.STRING)
+	@NaturalId
+	@Enumerated(EnumType.STRING)
 	@Column(name = "role_name")
-	private String roleName;
+	private RoleName roleName;
 
 	// bi-directional many-to-many association to Menu
 	@ManyToMany
@@ -50,11 +56,11 @@ public class Role implements Serializable {
 		this.roleId = roleId;
 	}
 
-	public String getRoleName() {
+	public RoleName getRoleName() {
 		return roleName;
 	}
 
-	public void setRoleName(String roleName) {
+	public void setRoleName(RoleName roleName) {
 		this.roleName = roleName;
 	}
 

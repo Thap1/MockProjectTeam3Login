@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.spring.cmc.entity.User;
 import com.spring.cmc.securiry.services.UserPrinciple;
 
 import io.jsonwebtoken.Claims;
@@ -32,31 +31,36 @@ public class JwtProvider {
 
 		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
-		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
+		Claims claims = Jwts.claims().setSubject(userPrincipal.getUsername());
+		claims.put("UserId", userPrincipal.getUserId());
+		claims.put("role", userPrincipal.getAuthorities());
+
+		return Jwts.builder().setClaims(claims)
+
+				.setIssuedAt(new Date()).setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 
-	public String generator(User user) {
-		Claims claims = Jwts.claims().setSubject(user.getFullName());
-		claims.put("userId", String.valueOf(user.getUserId()));
-		claims.put("role", user.getRoles());
+//	public String generator(User user) {
+//		Claims claims = Jwts.claims().setSubject(user.getFullName());
+//		claims.put("userId", String.valueOf(user.getUserId()));
+//		claims.put("role", user.getRoles());
+//
+//		return Jwts.builder().setClaims(claims).setExpiration(createExpirationDate())
+//				.signWith(SignatureAlgorithm.HS512, generateShareSecret()).compact();
+//
+//	}
 
-		return Jwts.builder().setClaims(claims).setExpiration(createExpirationDate())
-				.signWith(SignatureAlgorithm.HS512, generateShareSecret()).compact();
-
-	}
-
-	private Date createExpirationDate() {
-		return new Date(System.currentTimeMillis() + 8600000);
-	}
-
-	private byte[] generateShareSecret() {
-		// Generate 256-bit (32-byte) shared secret
-		byte[] sharedSecret = new byte[32];
-		sharedSecret = jwtSecret.getBytes();
-		return sharedSecret;
-	}
+//	private Date createExpirationDate() {
+//		return new Date(System.currentTimeMillis() + 8600000);
+//	}
+//
+//	private byte[] generateShareSecret() {
+//		// Generate 256-bit (32-byte) shared secret
+//		byte[] sharedSecret = new byte[32];
+//		sharedSecret = jwtSecret.getBytes();
+//		return sharedSecret;
+//	}
 
 	public boolean validateJwtToken(String authToken) {
 		try {
