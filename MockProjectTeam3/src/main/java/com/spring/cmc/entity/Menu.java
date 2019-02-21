@@ -29,8 +29,8 @@ public class Menu implements Serializable {
 	private String menuName;
 
 	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="menus")
-	private List<Role> roles;
+//	@ManyToMany(mappedBy="menus")
+//	private List<Role> roles;
 
 	public Menu() {
 	}
@@ -67,12 +67,12 @@ public class Menu implements Serializable {
 		this.menuName = menuName;
 	}
 
-	public List<Role> getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+//	public List<Role> getRoles() {
+//		return this.roles;
+//	}
+//
+//	public void setRoles(List<Role> roles) {
+//		this.roles = roles;
+//	}
 
 }
