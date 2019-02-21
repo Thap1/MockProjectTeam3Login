@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.cmc.configuration.JwtProvider;
 import com.spring.cmc.entity.Role;
 import com.spring.cmc.entity.User;
-import com.spring.cmc.message.request.LoginForm;
-import com.spring.cmc.message.request.SignUpFrom;
-import com.spring.cmc.message.response.JwtResponse;
-import com.spring.cmc.message.response.ResponseMessage;
-import com.spring.cmc.model.RoleName;
 import com.spring.cmc.repository.RoleRepository;
 import com.spring.cmc.repository.UserRepository;
-import com.spring.cmc.securiry.jwt.JwtProvider;
-import com.spring.cmc.securiry.services.UserDetailsServiceImpl;
+import com.spring.cmc.services.impl.UserDetailsServiceImpl;
+import com.spring.cmc.utils.RoleName;
+import com.spring.cmc.utils.request.LoginForm;
+import com.spring.cmc.utils.request.SignUpFrom;
+import com.spring.cmc.utils.response.JwtResponse;
+import com.spring.cmc.utils.response.ResponseMessage;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

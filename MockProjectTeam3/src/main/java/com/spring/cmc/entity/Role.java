@@ -17,7 +17,7 @@ import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.NaturalId;
 
-import com.spring.cmc.model.RoleName;
+import com.spring.cmc.utils.RoleName;
 
 /**
  * The persistent class for the role database table.

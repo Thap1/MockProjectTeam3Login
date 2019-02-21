@@ -1,4 +1,4 @@
-package com.spring.cmc.message.response;
+package com.spring.cmc.utils.response;
 
 public class ResponseMessage {
 	private String message;

@@ -1,4 +1,4 @@
-package com.spring.cmc.securiry;
+package com.spring.cmc.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.spring.cmc.securiry.jwt.JwtAuthEntryPoint;
-import com.spring.cmc.securiry.jwt.JwtAuthTokenFilter;
-import com.spring.cmc.securiry.services.UserDetailsServiceImpl;
+import com.spring.cmc.services.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

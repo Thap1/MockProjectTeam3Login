@@ -1,4 +1,4 @@
-package com.spring.cmc.securiry.services;
+package com.spring.cmc.services.impl;
 
 import java.util.Optional;
 
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.cmc.configuration.UserPrinciple;
 import com.spring.cmc.entity.User;
 import com.spring.cmc.repository.UserRepository;
 

@@ -1,4 +1,4 @@
-package com.spring.cmc.securiry.jwt;
+package com.spring.cmc.configuration;
 
 import java.io.IOException;
 
