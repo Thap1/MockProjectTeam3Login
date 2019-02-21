@@ -1,23 +1,23 @@
-package com.spring.cmc.model;
+package com.spring.cmc.util.request;
 
-import java.util.List;
+import java.util.Set;
 
-public class UserModel {
-	private int userId;
+public class SignUpFrom {
+
 	private String email;
 	private String fullName;
 	private String mobile;
 	private String password;
 	private int status;
 
-	private List<RoleModel> roles;
+	private Set<String> role;
 
-	public int getUserId() {
-		return userId;
+	public Set<String> getRole() {
+		return role;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setRole(Set<String> role) {
+		this.role = role;
 	}
 
 	public String getEmail() {
@@ -58,14 +58,6 @@ public class UserModel {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public List<RoleModel> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<RoleModel> roles) {
-		this.roles = roles;
 	}
 
 }

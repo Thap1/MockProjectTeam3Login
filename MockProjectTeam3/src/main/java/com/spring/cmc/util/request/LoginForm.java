@@ -1,4 +1,4 @@
-package com.spring.cmc.message.request;
+package com.spring.cmc.util.request;
 
 public class LoginForm {
 

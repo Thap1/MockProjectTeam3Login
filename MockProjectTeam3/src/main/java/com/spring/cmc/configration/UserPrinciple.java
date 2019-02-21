@@ -1,4 +1,4 @@
-package com.spring.cmc.securiry.services;
+package com.spring.cmc.configration;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.spring.cmc.securiry.jwt;
+package com.spring.cmc.configration;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.spring.cmc.securiry.services.UserDetailsServiceImpl;
+import com.spring.cmc.services.impl.UserDetailsServiceImpl;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 	@Autowired

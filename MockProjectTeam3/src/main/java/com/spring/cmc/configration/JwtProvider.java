@@ -1,4 +1,4 @@
-package com.spring.cmc.securiry.jwt;
+package com.spring.cmc.configration;
 
 import java.util.Date;
 
@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
-import com.spring.cmc.securiry.services.UserPrinciple;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -40,27 +38,6 @@ public class JwtProvider {
 				.setIssuedAt(new Date()).setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
-
-//	public String generator(User user) {
-//		Claims claims = Jwts.claims().setSubject(user.getFullName());
-//		claims.put("userId", String.valueOf(user.getUserId()));
-//		claims.put("role", user.getRoles());
-//
-//		return Jwts.builder().setClaims(claims).setExpiration(createExpirationDate())
-//				.signWith(SignatureAlgorithm.HS512, generateShareSecret()).compact();
-//
-//	}
-
-//	private Date createExpirationDate() {
-//		return new Date(System.currentTimeMillis() + 8600000);
-//	}
-//
-//	private byte[] generateShareSecret() {
-//		// Generate 256-bit (32-byte) shared secret
-//		byte[] sharedSecret = new byte[32];
-//		sharedSecret = jwtSecret.getBytes();
-//		return sharedSecret;
-//	}
 
 	public boolean validateJwtToken(String authToken) {
 		try {

@@ -1,4 +1,4 @@
-package com.spring.cmc.message.response;
+package com.spring.cmc.util.response;
 
 import java.util.Collection;
 
