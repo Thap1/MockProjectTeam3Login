@@ -3,7 +3,9 @@ package com.spring.cmc.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table
 @NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +35,7 @@ public class Group implements Serializable {
 
 	//bi-directional many-to-many association to User
 	@ManyToMany(mappedBy="groups")
-	private List<User> users;
+	private Set<User> users = new HashSet<>();
 
 	public Group() {
 	}
@@ -69,11 +72,11 @@ public class Group implements Serializable {
 		this.groupName = groupName;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

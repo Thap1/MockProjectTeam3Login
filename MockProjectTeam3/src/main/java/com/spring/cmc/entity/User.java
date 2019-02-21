@@ -17,13 +17,17 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
+@Table
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,6 +38,7 @@ public class User implements Serializable {
 	private int userId;
 
 	@NotBlank
+	@Column(name = "email")
 	private String email;
 
 	@NotBlank
@@ -41,11 +46,14 @@ public class User implements Serializable {
 	private String fullName;
 
 	@NotBlank
+	@Column(name = "mobile")
 	private String mobile;
 
 	@NotBlank
+	@Column(name = "password")
 	private String password;
 
+	@Column(name = "status")
 	private int status;
 
 	// private Set<Role> roles = new HashSet<>();
@@ -81,10 +89,10 @@ public class User implements Serializable {
 	private List<Question> questions;
 
 	// bi-directional many-to-many association to Group
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "group_id") })
-	private List<Group> groups;
+	private Set<Group> groups = new HashSet<>();
 
 	// bi-directional many-to-many association to Role
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -261,12 +269,13 @@ public class User implements Serializable {
 		return question;
 	}
 
-	public List<Group> getGroups() {
-		return this.groups;
+	public Set<Group> getGroups() {
+		return groups;
 	}
 
-	public void setGroups(List<Group> groups) {
+	public void setGroups(Set<Group> groups) {
 		this.groups = groups;
 	}
+
 
 }
