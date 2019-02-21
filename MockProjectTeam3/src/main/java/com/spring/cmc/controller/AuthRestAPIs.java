@@ -71,7 +71,7 @@ public class AuthRestAPIs {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpFrom signUpRequest) {
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<>(new ResponseMessage("Faile -> Email is already token!"),
+			return new ResponseEntity<>(new ResponseMessage("Faile -> Email is already token !"),
 					HttpStatus.BAD_REQUEST);
 		}
 		// creating users account
