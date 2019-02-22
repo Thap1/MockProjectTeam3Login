@@ -1,42 +1,56 @@
 package com.spring.cmc.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
-/**
- * The persistent class for the menu database table.
- * 
- */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@NamedQuery(name="Menu.findAll", query="SELECT m FROM Menu m")
-public class Menu implements Serializable {
+public class Menu implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="menu_id")
 	private int menuId;
-
-	@Column(name="menu_description")
+	
+	@Column(name = "menu_description")
 	private String menuDescription;
-
-	@Column(name="menu_function")
+	
+	@Column(name = "menu_function")
 	private String menuFunction;
-
-	@Column(name="menu_name")
+	
+	@Column(name = "menu_name")
 	private String menuName;
-
-	//bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy="menus")
-	private List<Role> roles;
+	
+	@ManyToMany(mappedBy="menus", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("menus")
+	private List<Role> roles_menu;
 
 	public Menu() {
+		super();
+	}
+
+	public Menu(int menuId, String menuDescription, String menuFunction, String menuName) {
+		super();
+		this.menuId = menuId;
+		this.menuDescription = menuDescription;
+		this.menuFunction = menuFunction;
+		this.menuName = menuName;
 	}
 
 	public int getMenuId() {
-		return this.menuId;
+		return menuId;
 	}
 
 	public void setMenuId(int menuId) {
@@ -44,7 +58,7 @@ public class Menu implements Serializable {
 	}
 
 	public String getMenuDescription() {
-		return this.menuDescription;
+		return menuDescription;
 	}
 
 	public void setMenuDescription(String menuDescription) {
@@ -52,7 +66,7 @@ public class Menu implements Serializable {
 	}
 
 	public String getMenuFunction() {
-		return this.menuFunction;
+		return menuFunction;
 	}
 
 	public void setMenuFunction(String menuFunction) {
@@ -60,19 +74,15 @@ public class Menu implements Serializable {
 	}
 
 	public String getMenuName() {
-		return this.menuName;
+		return menuName;
 	}
 
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
 
-	public List<Role> getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

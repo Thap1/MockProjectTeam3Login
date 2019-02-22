@@ -1,6 +1,7 @@
 package com.spring.cmc.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import com.spring.cmc.entity.User;
 import com.spring.cmc.repository.RoleRepository;
 import com.spring.cmc.repository.UserRepository;
 import com.spring.cmc.services.impl.UserDetailsServiceImpl;
+import com.spring.cmc.services.impl.UserServiceImpl;
 import com.spring.cmc.utils.RoleName;
 import com.spring.cmc.utils.request.LoginForm;
 import com.spring.cmc.utils.request.SignUpFrom;
@@ -50,6 +53,9 @@ public class AuthRestAPIs {
 
 	@Autowired
 	JwtProvider jwtProvider;
+
+	@Autowired
+	private UserServiceImpl userService;
 
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;

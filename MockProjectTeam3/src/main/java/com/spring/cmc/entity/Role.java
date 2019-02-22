@@ -3,29 +3,27 @@ package com.spring.cmc.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spring.cmc.utils.RoleName;
 
-/**
- * The persistent class for the role database table.
- * 
- */
 @Entity
-@NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
 public class Role implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -38,15 +36,19 @@ public class Role implements Serializable {
 	@Column(name = "role_name")
 	private RoleName roleName;
 
-	// bi-directional many-to-many association to Menu
 	@ManyToMany
-	@JoinTable(name = "role_menu", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "menu_id") })
+	@JoinTable(name = "role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
+	@JsonIgnoreProperties("roles_menu")
+	
 	private List<Menu> menus;
 
-	// bi-directional many-to-many association to User
+	@JsonIgnoreProperties("roles")
 	@ManyToMany(mappedBy = "roles")
 	private List<User> users;
+
+	public Role() {
+		super();
+	}
 
 	public int getRoleId() {
 		return roleId;
@@ -62,6 +64,10 @@ public class Role implements Serializable {
 
 	public void setRoleName(RoleName roleName) {
 		this.roleName = roleName;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public List<Menu> getMenus() {

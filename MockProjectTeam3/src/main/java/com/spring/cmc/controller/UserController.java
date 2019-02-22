@@ -1,5 +1,6 @@
 package com.spring.cmc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,24 @@ import com.spring.cmc.services.impl.UserServiceImpl;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class UserController {
 	
 	@Autowired
 	private UserServiceImpl userService;
 	
-
-	
 	@GetMapping(value = "/user")
 	public ResponseEntity<List<User>> listUser(){
+//		List<User> listCurrent = userService.findAll();
+//		List<User> listNew =new  ArrayList<User>();
+//		for (User user : listCurrent) {
+//			user.setGroups(null);
+//			listNew.add(user);
+//		}
+		System.out.println(userService.findAll());
 		return new ResponseEntity<List<User>>(userService.findAll(),HttpStatus.OK);
 	}
+
 	
 	@GetMapping(value = "/user/infor/{id}")
 	public ResponseEntity<User> getUser(@PathVariable("id") int id){
