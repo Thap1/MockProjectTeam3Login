@@ -1,32 +1,39 @@
 package com.spring.cmc.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the question_type database table.
  * 
  */
 @Entity
-@Table(name="question_type")
-@NamedQuery(name="QuestionType.findAll", query="SELECT q FROM QuestionType q")
+@Table(name = "question_type")
+@NamedQuery(name = "QuestionType.findAll", query = "SELECT q FROM QuestionType q")
 public class QuestionType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="type_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "type_id")
 	private int typeId;
 
 	private int status;
 
-	@Column(name="type_name")
+	@Column(name = "type_name")
 	private String typeName;
 
-	//bi-directional many-to-one association to Question
-	@OneToMany(mappedBy="questionType")
+	// bi-directional many-to-one association to Question
+	@OneToMany(mappedBy = "questionType")
 	private List<Question> questions;
 
 	public QuestionType() {

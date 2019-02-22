@@ -1,45 +1,55 @@
 package com.spring.cmc.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the category database table.
  * 
  */
 @Entity
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="category_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "category_id")
 	private int categoryId;
 
-	@Column(name="category_name")
+	@Column(name = "category_name")
 	private String categoryName;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_created")
+	@Column(name = "date_created")
 	private Date dateCreated;
 
 	private int status;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="user_id_created")
+	@JoinColumn(name = "user_id_created")
 	private User user;
 
-	//bi-directional many-to-one association to Exam
-	@OneToMany(mappedBy="category")
+	// bi-directional many-to-one association to Exam
+	@OneToMany(mappedBy = "category")
 	private List<Exam> exams;
 
-	//bi-directional many-to-one association to Question
-	@OneToMany(mappedBy="category")
+	// bi-directional many-to-one association to Question
+	@OneToMany(mappedBy = "category")
 	private List<Question> questions;
 
 	public Category() {

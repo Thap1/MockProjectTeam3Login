@@ -29,13 +29,13 @@ public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id")
 	private int roleId;
 
-	@NaturalId
-	@Enumerated(EnumType.STRING)
 	@Column(name = "role_name")
+	@Enumerated(EnumType.STRING)
+	@NaturalId
 	private RoleName roleName;
 
 	// bi-directional many-to-many association to Menu
@@ -48,8 +48,11 @@ public class Role implements Serializable {
 	@ManyToMany(mappedBy = "roles")
 	private List<User> users;
 
+	public Role() {
+	}
+
 	public int getRoleId() {
-		return roleId;
+		return this.roleId;
 	}
 
 	public void setRoleId(int roleId) {
@@ -65,7 +68,7 @@ public class Role implements Serializable {
 	}
 
 	public List<Menu> getMenus() {
-		return menus;
+		return this.menus;
 	}
 
 	public void setMenus(List<Menu> menus) {
@@ -73,7 +76,7 @@ public class Role implements Serializable {
 	}
 
 	public List<User> getUsers() {
-		return users;
+		return this.users;
 	}
 
 	public void setUsers(List<User> users) {

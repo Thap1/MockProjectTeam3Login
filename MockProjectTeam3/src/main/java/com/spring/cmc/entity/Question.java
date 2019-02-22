@@ -1,30 +1,41 @@
 package com.spring.cmc.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the question database table.
  * 
  */
 @Entity
-@NamedQuery(name="Question.findAll", query="SELECT q FROM Question q")
+@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")
 public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="question_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "question_id")
 	private String questionId;
 
 	@Lob
 	private String content;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_created")
+	@Column(name = "date_created")
 	private Date dateCreated;
 
 	private int status;
@@ -32,45 +43,41 @@ public class Question implements Serializable {
 	@Lob
 	private String sugguestion;
 
-	//bi-directional many-to-one association to Answer
-	@OneToMany(mappedBy="question")
+	// bi-directional many-to-one association to Answer
+	@OneToMany(mappedBy = "question")
 	private List<Answer> answers;
 
-	//bi-directional many-to-many association to Exam
-	@ManyToMany(mappedBy="questions")
-	private List<Exam> exams;
-
-	//bi-directional many-to-one association to ExamQuestion
-	@OneToMany(mappedBy="question")
+	// bi-directional many-to-one association to ExamQuestion
+	@OneToMany(mappedBy = "question")
 	private List<ExamQuestion> examQuestions;
 
-	//bi-directional many-to-one association to Category
+	// bi-directional many-to-one association to Category
 	@ManyToOne
-	@JoinColumn(name="category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
 
-	//bi-directional many-to-one association to QuestionLevel
+	// bi-directional many-to-one association to QuestionType
 	@ManyToOne
-	@JoinColumn(name="level_id")
-	private QuestionLevel questionLevel;
-
-	//bi-directional many-to-one association to QuestionType
-	@ManyToOne
-	@JoinColumn(name="type_id")
+	@JoinColumn(name = "type_id")
 	private QuestionType questionType;
 
-	//bi-directional many-to-one association to Tag
+	// bi-directional many-to-one association to QuestionLevel
 	@ManyToOne
-	@JoinColumn(name="tag_id")
+	@JoinColumn(name = "level_id")
+	private QuestionLevel questionLevel;
+
+	// bi-directional many-to-one association to Tag
+	@ManyToOne
+	@JoinColumn(name = "tag_id")
 	private Tag tag;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="user_id_created")
+	@JoinColumn(name = "user_id_created")
 	private User user;
 
-	//bi-directional many-to-one association to TestResult
-	@OneToMany(mappedBy="question")
+	// bi-directional many-to-one association to TestResult
+	@OneToMany(mappedBy = "question")
 	private List<TestResult> testResults;
 
 	public Question() {
@@ -138,14 +145,6 @@ public class Question implements Serializable {
 		return answer;
 	}
 
-	public List<Exam> getExams() {
-		return this.exams;
-	}
-
-	public void setExams(List<Exam> exams) {
-		this.exams = exams;
-	}
-
 	public List<ExamQuestion> getExamQuestions() {
 		return this.examQuestions;
 	}
@@ -176,20 +175,20 @@ public class Question implements Serializable {
 		this.category = category;
 	}
 
-	public QuestionLevel getQuestionLevel() {
-		return this.questionLevel;
-	}
-
-	public void setQuestionLevel(QuestionLevel questionLevel) {
-		this.questionLevel = questionLevel;
-	}
-
 	public QuestionType getQuestionType() {
 		return this.questionType;
 	}
 
 	public void setQuestionType(QuestionType questionType) {
 		this.questionType = questionType;
+	}
+
+	public QuestionLevel getQuestionLevel() {
+		return this.questionLevel;
+	}
+
+	public void setQuestionLevel(QuestionLevel questionLevel) {
+		this.questionLevel = questionLevel;
 	}
 
 	public Tag getTag() {

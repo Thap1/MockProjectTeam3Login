@@ -1,82 +1,80 @@
 package com.spring.cmc.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the exam database table.
  * 
  */
 @Entity
-@NamedQuery(name="Exam.findAll", query="SELECT e FROM Exam e")
+@NamedQuery(name = "Exam.findAll", query = "SELECT e FROM Exam e")
 public class Exam implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="exam_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "exam_id")
 	private String examId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_at")
+	@Column(name = "create_at")
 	private Date createAt;
 
 	private float duration;
 
-	@Column(name="is_enable")
+	@Column(name = "is_enable")
 	private byte isEnable;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="modified_at")
+	@Column(name = "modified_at")
 	private Date modifiedAt;
 
 	@Lob
 	private String note;
 
-	@Column(name="number_of_question")
+	@Column(name = "number_of_question")
 	private int numberOfQuestion;
 
 	private String status;
 
 	private String title;
 
-	//bi-directional many-to-one association to Category
+	// bi-directional many-to-one association to Category
 	@ManyToOne
-	@JoinColumn(name="category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
 
-	//bi-directional many-to-many association to Question
-	@ManyToMany
-	@JoinTable(
-		name="exam_question"
-		, joinColumns={
-			@JoinColumn(name="exam_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="question_id")
-			}
-		)
-	private List<Question> questions;
-
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="create_by")
+	@JoinColumn(name = "create_by")
 	private User user1;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="modified_by")
+	@JoinColumn(name = "modified_by")
 	private User user2;
 
-	//bi-directional many-to-one association to ExamQuestion
-	@OneToMany(mappedBy="exam")
+	// bi-directional many-to-one association to ExamQuestion
+	@OneToMany(mappedBy = "exam")
 	private List<ExamQuestion> examQuestions;
 
-	//bi-directional many-to-one association to Test
-	@OneToMany(mappedBy="exam")
+	// bi-directional many-to-one association to Test
+	@OneToMany(mappedBy = "exam")
 	private List<Test> tests;
 
 	public Exam() {
@@ -160,14 +158,6 @@ public class Exam implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public List<Question> getQuestions() {
-		return this.questions;
-	}
-
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
 	}
 
 	public User getUser1() {

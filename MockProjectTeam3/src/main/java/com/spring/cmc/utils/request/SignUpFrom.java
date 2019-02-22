@@ -2,8 +2,11 @@ package com.spring.cmc.utils.request;
 
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+
 public class SignUpFrom {
 
+	@Email
 	private String email;
 	private String fullName;
 	private String mobile;
