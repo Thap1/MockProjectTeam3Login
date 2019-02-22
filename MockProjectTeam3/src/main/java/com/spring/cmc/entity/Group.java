@@ -44,6 +44,17 @@ public class Group implements Serializable {
 
 	public Group() {
 	}
+	
+	
+
+	public Group(String groupName, int createBy, Date createDate) {
+		super();
+		this.groupName = groupName;
+		this.createBy = createBy;
+		this.createDate = createDate;
+	}
+
+
 
 	public int getGroupId() {
 		return this.groupId;
