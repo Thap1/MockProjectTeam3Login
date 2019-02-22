@@ -26,6 +26,8 @@ import com.spring.cmc.services.impl.UserServiceImpl;
 @RequestMapping("/api")
 public class UserController {
 	
+	
+	
 	@Autowired
 	private UserServiceImpl userService;
 	
@@ -51,11 +53,11 @@ public class UserController {
 		} 
 	}
 	
-	@PostMapping(value = "/user/create")
-	public ResponseEntity<String> addUser(@RequestBody User user){
-		userService.save(user);
-		return new ResponseEntity<String>(HttpStatus.OK);
-	}
+//	@PostMapping(value = "/user/create")
+//	public ResponseEntity<String> addUser(@RequestBody User user){
+//		userService.save(user);
+//		return new ResponseEntity<String>(HttpStatus.OK);
+//	}
 	
 	@PutMapping(value = "/user/update/{id}")
 	public ResponseEntity<String> update(@RequestBody User user){

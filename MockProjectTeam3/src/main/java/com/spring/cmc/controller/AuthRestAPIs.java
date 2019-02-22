@@ -59,6 +59,26 @@ public class AuthRestAPIs {
 
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
+	
+	@GetMapping(value = "/user")
+	public ResponseEntity<List<User>> listUser(){
+//		List<User> listCurrent = userService.findAll();
+//		List<User> listNew =new  ArrayList<User>();
+//		for (User user : listCurrent) {
+//			user.setGroups(null);
+//			listNew.add(user);
+//		}
+		System.out.println(userService.findAll());
+		return new ResponseEntity<List<User>>(userService.findAll(),HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/user/create")
+	public ResponseEntity<String> addUser(@RequestBody User user){
+		String pass = encoder.encode(user.getPassword());
+		user.setPassword(pass);
+		userService.save(user);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
