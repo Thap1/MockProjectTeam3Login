@@ -13,40 +13,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+//@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
-	@NotBlank
+
 	private String email;
 
-	@NotBlank
 	@Column(name = "full_name")
 	private String fullName;
 
-	@NotBlank
 	private String mobile;
 
-	@NotBlank
 	private String password;
 
 	private int status;
 
-	public User(@NotBlank String email, @NotBlank String fullName, @NotBlank String mobile, @NotBlank String password,
-			int status) {
+	public User(String email, String fullName, String mobile, String password, int status) {
 		super();
 		this.email = email;
 		this.fullName = fullName;
@@ -57,34 +53,39 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Candidate
 	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties("users")
 	private List<Candidate> candidates;
 
 	// bi-directional many-to-one association to Category
 	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties("users")
 	private List<Category> categories;
 
 	// bi-directional many-to-one association to Exam
 	@OneToMany(mappedBy = "user1")
+	@JsonIgnoreProperties("users")
 	private List<Exam> exams1;
 
 	// bi-directional many-to-one association to Exam
 	@OneToMany(mappedBy = "user2")
+	@JsonIgnoreProperties("users")
 	private List<Exam> exams2;
 
 	// bi-directional many-to-one association to Question
 	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties("users")
 	private List<Question> questions;
 
-	// bi-directional many-to-many association to Group
-	@ManyToMany
-	@JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "group_id") })
-	private List<Group> groups;
+	// bi-directional many-to-many association to GroupName
+	@ManyToMany(mappedBy = "users")
+	@JsonIgnoreProperties("users")
+	private List<GroupName> groupNames;
 
 	// bi-directional many-to-many association to Role
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id") })
+	@JsonIgnoreProperties("users")
 	private Set<Role> roles = new HashSet<>();
 
 	public User() {
@@ -248,12 +249,12 @@ public class User implements Serializable {
 		return question;
 	}
 
-	public List<Group> getGroups() {
-		return this.groups;
+	public List<GroupName> getGroupNames() {
+		return this.groupNames;
 	}
 
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	public void setGroupNames(List<GroupName> groupNames) {
+		this.groupNames = groupNames;
 	}
 
 	public Set<Role> getRoles() {

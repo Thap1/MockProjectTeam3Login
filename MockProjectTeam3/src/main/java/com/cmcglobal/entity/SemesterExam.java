@@ -1,67 +1,57 @@
 package com.cmcglobal.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the semester_exam database table.
  * 
  */
 @Entity
-@Table(name = "semester_exam")
-@NamedQuery(name = "SemesterExam.findAll", query = "SELECT s FROM SemesterExam s")
+@Table(name="semester_exam")
+@NamedQuery(name="SemesterExam.findAll", query="SELECT s FROM SemesterExam s")
 public class SemesterExam implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "semester_exam_id")
+	@Column(name="semester_exam_id")
 	private String semesterExamId;
 
-	@Column(name = "create_by")
+	@Column(name="create_by")
 	private int createBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "end_at")
+	@Column(name="end_at")
 	private Date endAt;
 
-	@Column(name = "is_show")
+	@Column(name="is_show")
 	private int isShow;
 
-	@Column(name = "semester_description")
+	@Column(name="semester_description")
 	private String semesterDescription;
 
-	@Column(name = "semester_exam_name")
+	@Column(name="semester_exam_name")
 	private String semesterExamName;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "start_at")
+	@Column(name="start_at")
 	private Date startAt;
 
 	private int status;
 
-	// bi-directional many-to-one association to Candidate
-	@OneToMany(mappedBy = "semesterExam")
+	//bi-directional many-to-one association to Candidate
+	@OneToMany(mappedBy="semesterExam")
 	private List<Candidate> candidates;
 
-	// bi-directional many-to-one association to SemesterExamCode
-	@OneToMany(mappedBy = "semesterExam")
+	//bi-directional many-to-one association to SemesterExamCode
+	@OneToMany(mappedBy="semesterExam")
 	private List<SemesterExamCode> semesterExamCodes;
 
-	// bi-directional many-to-one association to Test
-	@OneToMany(mappedBy = "semesterExam")
+	//bi-directional many-to-one association to Test
+	@OneToMany(mappedBy="semesterExam")
 	private List<Test> tests;
 
 	public SemesterExam() {

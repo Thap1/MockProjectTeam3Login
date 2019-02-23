@@ -1,37 +1,30 @@
 package com.cmcglobal.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 /**
  * The persistent class for the tag database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Tag.findAll", query = "SELECT t FROM Tag t")
+@NamedQuery(name="Tag.findAll", query="SELECT t FROM Tag t")
 public class Tag implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "tag_id")
+	@Column(name="tag_id")
 	private int tagId;
 
 	private int status;
 
-	@Column(name = "tag_name")
+	@Column(name="tag_name")
 	private String tagName;
 
-	// bi-directional many-to-one association to Question
-	@OneToMany(mappedBy = "tag")
+	//bi-directional many-to-one association to Question
+	@OneToMany(mappedBy="tag")
 	private List<Question> questions;
 
 	public Tag() {

@@ -13,32 +13,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.NaturalId;
 
 import com.cmcglobal.utils.RoleName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the role database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
+//@NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int roleId;
 
 	@Column(name = "role_name")
-	@Enumerated(EnumType.STRING)
 	@NaturalId
+	@Enumerated(EnumType.STRING)
 	private RoleName roleName;
 
-	// bi-directional many-to-many association to Men
+	// bi-directional many-to-many association to Menu
 	@ManyToMany
 	@JoinTable(name = "role_menu", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "menu_id") })
@@ -46,6 +46,7 @@ public class Role implements Serializable {
 
 	// bi-directional many-to-many association to User
 	@ManyToMany(mappedBy = "roles")
+	@JsonIgnoreProperties("roles")
 	private List<User> users;
 
 	public Role() {

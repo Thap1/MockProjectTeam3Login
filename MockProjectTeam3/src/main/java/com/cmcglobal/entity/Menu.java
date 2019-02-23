@@ -1,41 +1,34 @@
 package com.cmcglobal.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 
 /**
  * The persistent class for the menu database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Menu.findAll", query = "SELECT m FROM Menu m")
+@NamedQuery(name="Menu.findAll", query="SELECT m FROM Menu m")
 public class Menu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "menu_id")
+	@Column(name="menu_id")
 	private int menuId;
 
-	@Column(name = "menu_description")
+	@Column(name="menu_description")
 	private String menuDescription;
 
-	@Column(name = "menu_function")
+	@Column(name="menu_function")
 	private String menuFunction;
 
-	@Column(name = "menu_name")
+	@Column(name="menu_name")
 	private String menuName;
 
-	// bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy = "menus")
+	//bi-directional many-to-many association to Role
+	@ManyToMany(mappedBy="menus")
 	private List<Role> roles;
 
 	public Menu() {

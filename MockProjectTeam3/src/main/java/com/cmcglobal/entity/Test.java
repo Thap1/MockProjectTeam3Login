@@ -1,52 +1,43 @@
 package com.cmcglobal.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 /**
  * The persistent class for the test database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Test.findAll", query = "SELECT t FROM Test t")
+@NamedQuery(name="Test.findAll", query="SELECT t FROM Test t")
 public class Test implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "test_id")
+	@Column(name="test_id")
 	private int testId;
 
-	@Column(name = "candidate_id")
+	@Column(name="candidate_id")
 	private int candidateId;
 
 	private int status;
 
-	@Column(name = "test_name")
+	@Column(name="test_name")
 	private String testName;
 
-	// bi-directional many-to-one association to CandidateTest
-	@OneToMany(mappedBy = "test")
+	//bi-directional many-to-one association to CandidateTest
+	@OneToMany(mappedBy="test")
 	private List<CandidateTest> candidateTests;
 
-	// bi-directional many-to-one association to SemesterExam
+	//bi-directional many-to-one association to SemesterExam
 	@ManyToOne
-	@JoinColumn(name = "semester_exam_id")
+	@JoinColumn(name="semester_exam_id")
 	private SemesterExam semesterExam;
 
-	// bi-directional many-to-one association to Exam
+	//bi-directional many-to-one association to Exam
 	@ManyToOne
-	@JoinColumn(name = "exam_id")
+	@JoinColumn(name="exam_id")
 	private Exam exam;
 
 	public Test() {

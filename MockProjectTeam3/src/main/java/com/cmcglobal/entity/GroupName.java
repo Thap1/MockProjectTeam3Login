@@ -6,25 +6,28 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
- * The persistent class for the group database table.
+ * The persistent class for the group_name database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Group.findAll", query = "SELECT g FROM Group g")
-public class Group implements Serializable {
+@Table(name = "group_name")
+@NamedQuery(name = "GroupName.findAll", query = "SELECT g FROM GroupName g")
+public class GroupName implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "group_id")
 	private int groupId;
 
@@ -39,10 +42,13 @@ public class Group implements Serializable {
 	private String groupName;
 
 	// bi-directional many-to-many association to User
-	@ManyToMany(mappedBy = "groups")
+	@ManyToMany
+	@JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "group_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	@JsonIgnoreProperties("groupNames")
 	private List<User> users;
 
-	public Group() {
+	public GroupName() {
 	}
 
 	public int getGroupId() {

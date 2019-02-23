@@ -1,42 +1,33 @@
 package com.cmcglobal.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 
 /**
  * The persistent class for the answer database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Answer.findAll", query = "SELECT a FROM Answer a")
+@NamedQuery(name="Answer.findAll", query="SELECT a FROM Answer a")
 public class Answer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "answer_id")
+	@Column(name="answer_id")
 	private String answerId;
 
 	@Lob
 	private String content;
 
-	@Column(name = "is_true")
+	@Column(name="is_true")
 	private byte isTrue;
 
 	private int status;
 
-	// bi-directional many-to-one association to Question
+	//bi-directional many-to-one association to Question
 	@ManyToOne
-	@JoinColumn(name = "question_id")
+	@JoinColumn(name="question_id")
 	private Question question;
 
 	public Answer() {

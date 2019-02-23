@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the candidate database table.
@@ -23,13 +23,13 @@ public class Candidate implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "candidate_id")
 	private int candidateId;
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties("candidates")
 	private User user;
 
 	// bi-directional many-to-one association to SemesterExam

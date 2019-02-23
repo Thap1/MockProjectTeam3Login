@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -16,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the exam database table.
@@ -27,7 +27,6 @@ public class Exam implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "exam_id")
 	private String examId;
 
@@ -62,11 +61,13 @@ public class Exam implements Serializable {
 	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "create_by")
+	@JsonIgnoreProperties("exams1")
 	private User user1;
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "modified_by")
+	@JsonIgnoreProperties("exams2")
 	private User user2;
 
 	// bi-directional many-to-one association to ExamQuestion

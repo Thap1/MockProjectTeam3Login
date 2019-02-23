@@ -1,60 +1,48 @@
 package com.cmcglobal.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the candidate_test database table.
  * 
  */
 @Entity
-@Table(name = "candidate_test")
-@NamedQuery(name = "CandidateTest.findAll", query = "SELECT c FROM CandidateTest c")
+@Table(name="candidate_test")
+@NamedQuery(name="CandidateTest.findAll", query="SELECT c FROM CandidateTest c")
 public class CandidateTest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "candidate_test_id")
+	@Column(name="candidate_test_id")
 	private int candidateTestId;
 
-	@Column(name = "correct_number")
+	@Column(name="correct_number")
 	private int correctNumber;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "end_time")
+	@Column(name="end_time")
 	private Date endTime;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "start_time")
+	@Column(name="start_time")
 	private Date startTime;
 
-	// bi-directional many-to-one association to Candidate
+	//bi-directional many-to-one association to Candidate
 	@ManyToOne
-	@JoinColumn(name = "candidate_id")
+	@JoinColumn(name="candidate_id")
 	private Candidate candidate;
 
-	// bi-directional many-to-one association to Test
+	//bi-directional many-to-one association to Test
 	@ManyToOne
-	@JoinColumn(name = "test_id")
+	@JoinColumn(name="test_id")
 	private Test test;
 
-	// bi-directional many-to-one association to TestResult
-	@OneToMany(mappedBy = "candidateTest")
+	//bi-directional many-to-one association to TestResult
+	@OneToMany(mappedBy="candidateTest")
 	private List<TestResult> testResults;
 
 	public CandidateTest() {
